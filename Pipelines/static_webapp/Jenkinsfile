@@ -17,16 +17,14 @@ pipeline {
                 script {
                     withFolderProperties {
                         withAWS(credentials: 'aws', region: AWS_REGION) {
-                            try {
-                                cfnUpdate(
-                                    stack: "${env.environment}-dns-acm",
-                                    file: 'iac/aws/cloudformation/route_53/Route53-acm.yaml',
-                                    params: [
-                                        domainName: env.domainName
-                                    ],
-                                    timeoutInMinutes: 30
-                                )
-                            }
+                            cfnUpdate(
+                                stack: "${env.environment}-dns-acm",
+                                file: 'iac/aws/cloudformation/route_53/Route53-acm.yaml',
+                                params: [
+                                    domainName: env.domainName
+                                ],
+                                timeoutInMinutes: 30
+                            )
                         }
                     }
                 }
@@ -38,19 +36,17 @@ pipeline {
                 script {
                     withFolderProperties {
                         withAWS(credentials: 'aws', region: AWS_REGION) {
-                            try {
-                                cfnUpdate(
-                                    stack: "${env.environment}-s3-cdn",
-                                    file: 'iac/aws/cloudformation/s3/s3-cdn.yaml',
-                                    params: [
-                                        environment: env.environment,
-                                        product: env.product,
-                                        service: env.service,
-                                        subdomain: env.subdomain
-                                    ],
-                                    timeoutInMinutes: 30
-                                )
-                            }
+                            cfnUpdate(
+                                stack: "${env.environment}-s3-cdn",
+                                file: 'iac/aws/cloudformation/s3/s3-cdn.yaml',
+                                params: [
+                                    environment: env.environment,
+                                    product: env.product,
+                                    service: env.service,
+                                    subdomain: env.subdomain
+                                ],
+                                timeoutInMinutes: 30
+                            )
                         }
                     }
                 }
