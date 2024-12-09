@@ -1,6 +1,6 @@
 pipeline {
     agent any
-    
+
     environment {
         AWS_REGION = 'us-east-1'
     }
@@ -11,7 +11,7 @@ pipeline {
                 checkout scm
             }
         }
-        
+
         stage('Deploy DNS Stack') {
             steps {
                 script {
@@ -26,13 +26,13 @@ pipeline {
                                     ],
                                     timeoutInMinutes: 30
                                 )
-                            } 
+                            }
                         }
                     }
                 }
             }
         }
-        
+
         stage('Deploy CDN Stack') {
             steps {
                 script {
@@ -50,13 +50,13 @@ pipeline {
                                     ],
                                     timeoutInMinutes: 30
                                 )
-                            } 
+                            }
                         }
                     }
                 }
             }
         }
-        
+
         stage('Deploy Content') {
             steps {
                 script {
@@ -69,7 +69,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Verify') {
             steps {
                 script {
@@ -80,7 +80,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             cleanWs()
